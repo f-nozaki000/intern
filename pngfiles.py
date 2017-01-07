@@ -19,7 +19,6 @@ n_epoch = 10
 
 # blanks for correct parameters
 bfcp = np.zeros([n_data, 3])
-# print(bfcp)
 
 
 # make sin graphs & make an array of correct parameters
@@ -30,7 +29,6 @@ for i in range(0, n_data):
     r3 = random.uniform(0, np.pi)
 
     graph = plt.plot(x, r1*np.sin(r2*(x+r3)))
-    # p = plt.axvspan(0, 1, facecolor='g', alpha=0.5)
 
     s = str(i)
     filename = s.rjust(4, '0')
@@ -39,7 +37,6 @@ for i in range(0, n_data):
 
     cp = np.array([r1, (2*np.pi)/r2, r1*np.sin(r2*r3)])
 
-    # print(cp)
     bfcp[i, :] = cp[:]
     params = bfcp.astype(np.float32)
 
@@ -49,27 +46,17 @@ print(len(bfcp))
 
 # make a blank list for arrays of graphs
 list = []
-# print(len(list))
 
 # read files & delete column of transparency
 for png in glob.glob('/home/fuka/PycharmProjects/graphtocode/' + '*.png'):
     im = Image.open(png)
-    # reim = im.resize((600, 600))
-    # im = np.array(Image.open(png))
-    # arim = np.array(im.resize((600, 600)))
+
     imtoimg = np.delete(np.array(im.resize((600, 600))), 3, 2)
     img = imtoimg.astype(np.float32).reshape(3, 600, 600)/255
-    # print(arim.shape, arim.dtype)
-    # print(img.shape)
-    # plt.show()
 
     list.append(img)
 
 print(len(list))
-
-# aline = img[200]
-# print(aline.shape)
-# print(aline[90:110, :])
 
 class CNNRegression(Chain):
     def __init__(self):
